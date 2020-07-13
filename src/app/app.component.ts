@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'note-app';
+  title = 'My NOTE';
+
+  addFlag:boolean = false;
+
+  public toggleFlag(flag:boolean){
+    return flag = !flag;
+  }
 }

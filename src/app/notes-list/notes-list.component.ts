@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NoteService } from '../coomon/services/note.service';
 import { Subscription } from 'rxjs';
 import { Note } from '../coomon/models/note.model';
@@ -10,6 +10,9 @@ import { Note } from '../coomon/models/note.model';
 })
 export class NotesListComponent implements OnInit {
 
+  // @Input() addFlag:boolean;
+  // @Input() toggleFlag = new EventEmitter<any>();
+  
   s1: Subscription;
   notesList: Note[] = [];
 
@@ -37,6 +40,10 @@ export class NotesListComponent implements OnInit {
       (err) => console.log(err)
     );
   }
+
+  // toggleAdd(flag:boolean){
+  //   this.toggleFlag.emit(flag);
+  // }
 
   ngOnDestroy() {
     if(this.s1) {

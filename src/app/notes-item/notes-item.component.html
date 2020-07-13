@@ -1,0 +1,32 @@
+<div class="notes-header">
+    <h1 *ngIf="!id">Добавить заметку</h1>
+    <h1 *ngIf="id">Редактор заметки</h1>
+</div>
+<div class="notes-form" *ngIf="!id">
+    <form #f="ngForm" (ngSubmit)="addNote(f)">
+        <div class="title">
+            <input type="text" name="title" class="form-item" value="" placeholder="Название заметки" required >
+        </div>
+        <div class="desc">
+            <textarea name="desc" id="" rows="6" placeholder="Опишите заметку"></textarea>
+        </div>
+        <div class="form-buttons">
+            <a [routerLink]="['/']"  class="cancel">Отмена</a>
+            <button type="submit" class="submit-form">Создать</button>
+        </div>
+    </form>
+</div>
+<div class="notes-form" *ngIf="id" >
+    <form #f="ngForm" (ngSubmit)="changeNote(f)">
+        <div class="title">
+            <input type="text" name="title" class="form-item" value="{{ car.title }}" placeholder="Название заметки" required >
+        </div>
+        <div class="desc">
+            <textarea name="desc" id="" rows="6" placeholder="Опишите заметку">{{ car.desc }}</textarea>
+        </div>
+        <div class="form-buttons">
+            <a [routerLink]="['/']"  class="cancel">Отмена</a>
+            <button type="submit" class="submit-form">Обновить</button>
+        </div>
+    </form>
+</div>

@@ -1,12 +1,19 @@
-<div class="notes-list">
-
-  <div 
-    class="note-item"
-    *ngFor="let note of notesList; let i = index"
-  >
-      <div class="title">{{ note.title }}</div>
+<div class="notes-header">
+  <h1>My NOTES</h1>
+</div>
+<edm-notes-filter></edm-notes-filter>
+<div class="notes-wrapper">
+  <div class="notes-list">
+    <div 
+      class="note-item"
+      *ngFor="let note of notesList; let i = index"
+    >
+      <div class="title" [routerLink]="['note/', note.id]" >{{ note.title }}</div>
       <div class="desc">{{ note.desc }}</div>
       <button type="button" class="remove" (click)="deleteNote(note.id)"></button>
     </div>
-
   </div>
+</div>
+<div class="notes-footer">
+  <button class="notes-add" routerLink="/note">Добавить <strong>+</strong></button>
+</div>
