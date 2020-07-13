@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "note-app"
+    }
+  },
+  "defaultProject": "note-app",
+  "cli": {
+    "analytics": false
+  }
 }
