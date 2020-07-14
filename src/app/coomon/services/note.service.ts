@@ -24,7 +24,7 @@ export class NoteService {
         return this.http.put(this.serverUrl + `notes/${note.id}`, note)
     }
 
-    getItem(noteID:number){
+    getItem(noteID:string){
         return this.http.get(this.serverUrl + `notes/${noteID}`);
     }
 

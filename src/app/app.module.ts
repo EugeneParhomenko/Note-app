@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 
 import {Routes, RouterModule} from '@angular/router';
@@ -9,7 +10,7 @@ import { NotesListComponent } from './notes-list/notes-list.component';
 import { NotesFilterComponent } from './notes-list/notes-filter/notes-filter.component';
 import { NoteService } from './coomon/services/note.service';
 import { NotesItemComponent } from './notes-item/notes-item.component';
-import { FormsModule } from '@angular/forms';
+
 
 const appRoutes: Routes =[
   { path: 'note', component: NotesItemComponent},
@@ -27,8 +28,8 @@ const appRoutes: Routes =[
   ],
   imports: [
     BrowserModule,
-    HttpClientModule,
     FormsModule,
+    HttpClientModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [NoteService],

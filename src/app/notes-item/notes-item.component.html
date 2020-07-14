@@ -1,32 +1,44 @@
 <div class="notes-header">
-    <h1 *ngIf="!id">Добавить заметку</h1>
-    <h1 *ngIf="id">Редактор заметки</h1>
+    <h1 *ngIf="!noteId">Добавить заметку</h1>
+    <h1 *ngIf="noteId">Редактор заметки</h1>
 </div>
-<div class="notes-form" *ngIf="!id">
-    <form #f="ngForm" (ngSubmit)="addNote(f)">
+<div class="notes-form">
+    <form #f="ngForm" (ngSubmit)="submitNote(f)">
         <div class="title">
-            <input type="text" name="title" class="form-item" value="" placeholder="Название заметки" required >
+            <input 
+                type="text" 
+                id="noteTitle"
+                name="noteTitle"
+                class="form-item"
+                placeholder="Название заметки" 
+                #noteTitle="ngModel"
+                [ngModel]="note.title"
+                required
+            >
         </div>
         <div class="desc">
-            <textarea name="desc" id="" rows="6" placeholder="Опишите заметку"></textarea>
+            <textarea 
+                name="noteDesc" 
+                id="noteDesc"
+                #noteDesc="ngModel"
+                [ngModel]="note.desc"
+                rows="6" 
+                placeholder="Опишите заметку"
+            ></textarea>
         </div>
+        <input 
+            type="hidden"
+            id="noteId"
+            name="noteId"
+            #noteId="ngModel"
+            [ngModel]="noteId"
+        >
         <div class="form-buttons">
             <a [routerLink]="['/']"  class="cancel">Отмена</a>
-            <button type="submit" class="submit-form">Создать</button>
-        </div>
-    </form>
-</div>
-<div class="notes-form" *ngIf="id" >
-    <form #f="ngForm" (ngSubmit)="changeNote(f)">
-        <div class="title">
-            <input type="text" name="title" class="form-item" value="{{ car.title }}" placeholder="Название заметки" required >
-        </div>
-        <div class="desc">
-            <textarea name="desc" id="" rows="6" placeholder="Опишите заметку">{{ car.desc }}</textarea>
-        </div>
-        <div class="form-buttons">
-            <a [routerLink]="['/']"  class="cancel">Отмена</a>
-            <button type="submit" class="submit-form">Обновить</button>
+            <button type="submit" class="submit-form">
+                <span *ngIf="!noteId">Создать</span>
+                <span *ngIf="noteId">Обновить</span>
+            </button>
         </div>
     </form>
 </div>
