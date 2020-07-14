@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NgForm, FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Note } from '../coomon/models/note.model';
 import { Subscription } from 'rxjs';
 import { NoteService } from '../coomon/services/note.service';
@@ -29,12 +29,19 @@ export class NotesItemComponent implements OnInit, OnDestroy {
     this.s2 = this.noteService.getItem(id)
       .subscribe((note: Note) => {
         this.note = note;
+
+        // init FORM
+        this.form = new FormGroup({
+          title: new FormControl(note.title, [Validators.required, Validators.minLength(5)]),
+          desc: new FormControl(note.desc),
+          id: new FormControl(note.id)
+        })
+
     });
   }
 
   submitNote(){
     let {title, desc, id} = this.form.value;
-    console.log({title, desc, id})
     if (id) {
       // need update NOTE
       const note = {title, desc, id};
@@ -55,26 +62,17 @@ export class NotesItemComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
-    console.log('Note ID = ' + this.id);
 
     if(this.id) {
       this.renderNote(this.id);
     } else {
-      this.note = {
-        title: '',
-        desc: ''
-      };
+      // init FORM
+      this.form = new FormGroup({
+        title: new FormControl('', [Validators.required, Validators.minLength(5)]),
+        desc: new FormControl(''),
+        id: new FormControl('')
+      })
     }
-
-    console.log(this.note);
-
-    this.form = new FormGroup({
-      title: new FormControl('', [Validators.required, Validators.minLength(5)]),
-      desc: new FormControl(''),
-      id: new FormControl('')
-    })
-
-
 
   }
 

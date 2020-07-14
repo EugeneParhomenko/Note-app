@@ -3,7 +3,7 @@
     <h1 *ngIf="noteId">Редактор заметки</h1>
 </div>
 <div class="notes-form">
-    <form [formGroup]="form" (ngSubmit)="submitNote()">
+    <form *ngIf="form" [formGroup]="form" (ngSubmit)="submitNote()">
         <div class="title">
             <input 
                 type="text" 
@@ -14,7 +14,6 @@
         </div>
         <div class="desc">
             <textarea 
-                name="noteDesc" 
                 formControlName="desc"
                 rows="6" 
                 placeholder="Опишите заметку"
@@ -28,8 +27,8 @@
         <div class="form-buttons">
             <a [routerLink]="['/']"  class="cancel">Отмена</a>
             <button type="submit" class="submit-form" [disabled]="form.invalid">
-                <span *ngIf="!noteId">Создать</span>
-                <span *ngIf="noteId">Обновить</span>
+                <span *ngIf="!id">Создать</span>
+                <span *ngIf="id">Обновить</span>
             </button>
         </div>
     </form>
