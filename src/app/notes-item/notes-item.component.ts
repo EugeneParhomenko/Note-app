@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NgForm } from '@angular/forms';
+import { NgForm, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Note } from '../coomon/models/note.model';
 import { Subscription } from 'rxjs';
 import { NoteService } from '../coomon/services/note.service';
@@ -12,10 +12,12 @@ import { NoteService } from '../coomon/services/note.service';
 })
 export class NotesItemComponent implements OnInit, OnDestroy {
 
-  noteId: string;
+  id: string;
   note: Note;
   s1: Subscription;
   s2: Subscription;
+  form: FormGroup;
+  
 
   constructor(
     private router: Router,
@@ -23,57 +25,57 @@ export class NotesItemComponent implements OnInit, OnDestroy {
     private noteService: NoteService
   ) { }
 
-  renderNote(noteId:string){
-    this.s2 = this.noteService.getItem(noteId)
-      .subscribe((noteItem: Note) => {
-        this.note = noteItem;
+  renderNote(id:string){
+    this.s2 = this.noteService.getItem(id)
+      .subscribe((note: Note) => {
+        this.note = note;
     });
   }
 
-  submitNote(form: NgForm){
-    let {noteTitle, noteDesc, noteId} = form.value;
-    if (noteId) {
+  submitNote(){
+    let {title, desc, id} = this.form.value;
+    console.log({title, desc, id})
+    if (id) {
       // need update NOTE
-      const note = new Note(noteTitle, noteDesc, noteId);
+      const note = {title, desc, id};
       this.s1 = this.noteService.update(note)
         .subscribe(() => {
           this.router.navigate(['/']);
         });
     } else {
       // need add new NOTE
-      const note = new Note(noteTitle, noteDesc);
+      const note = {title, desc, id};
       this.s1 = this.noteService.add(note)
         .subscribe(() => {
           this.router.navigate(['/']);
         });
     }
   }
-  
-  // addNote(form: NgForm){
-  //   console.log(form);
-  // }
-
-  // changeNote(form: NgForm){
-  //   let {noteTitle, noteDesc} = form.value;
-  //   const note = new Note(noteTitle, noteDesc, this.note.id);
-
-  //   this.s1 = this.noteService.update(note)
-  //     .subscribe(() => {
-  //       this.router.navigate(['/']);
-  //     });
-  // }
+ 
 
   ngOnInit(): void {
-    this.noteId = this.route.snapshot.params['id'];
+    this.id = this.route.snapshot.params['id'];
+    console.log('Note ID = ' + this.id);
 
-    if(this.noteId) {
-      this.renderNote(this.noteId);
+    if(this.id) {
+      this.renderNote(this.id);
     } else {
       this.note = {
         title: '',
         desc: ''
       };
     }
+
+    console.log(this.note);
+
+    this.form = new FormGroup({
+      title: new FormControl('', [Validators.required, Validators.minLength(5)]),
+      desc: new FormControl(''),
+      id: new FormControl('')
+    })
+
+
+
   }
 
   ngOnDestroy() {
