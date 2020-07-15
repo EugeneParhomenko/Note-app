@@ -1,12 +1,22 @@
 <div class="notes-header">
   <h1>My NOTES</h1>
 </div>
-<edm-notes-filter></edm-notes-filter>
+<!-- <edm-notes-filter></edm-notes-filter> -->
+<div class="notes-filter">
+  <input 
+    type="text" 
+    name="filter" 
+    class="filter" 
+    placeholder="Ключи поиска" 
+    autocomplete="off" 
+    [(ngModel)]="searchValue"
+  >
+</div>
 <div class="notes-wrapper">
   <div class="notes-list">
     <div 
       class="note-item"
-      *ngFor="let note of notesList; let i = index"
+      *ngFor="let note of notesList | edmFilter:searchValue ; let i = index"
     >
       <div class="title" [routerLink]="['note/', note.id]" >{{ note.title }}</div>
       <div class="desc">{{ note.desc }}</div>

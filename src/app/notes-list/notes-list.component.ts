@@ -3,6 +3,7 @@ import { NoteService } from '../coomon/services/note.service';
 import { Subscription } from 'rxjs';
 import { Note } from '../coomon/models/note.model';
 
+
 @Component({
   selector: 'edm-notes-list',
   templateUrl: './notes-list.component.html',
@@ -15,6 +16,7 @@ export class NotesListComponent implements OnInit {
   
   s1: Subscription;
   notesList: Note[] = [];
+  searchValue = '';
 
   constructor(
     private noteService: NoteService

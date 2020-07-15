@@ -9,6 +9,8 @@ export class NotesFilterComponent implements OnInit {
 
   constructor() { }
 
+  event;
+
   ngOnInit(): void {
   }
 

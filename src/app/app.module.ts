@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 
 import {Routes, RouterModule} from '@angular/router';
@@ -10,6 +10,7 @@ import { NotesListComponent } from './notes-list/notes-list.component';
 import { NotesFilterComponent } from './notes-list/notes-filter/notes-filter.component';
 import { NoteService } from './coomon/services/note.service';
 import { NotesItemComponent } from './notes-item/notes-item.component';
+import { FilterPipe } from './coomon/pipes/filter.pipe';
 
 
 const appRoutes: Routes =[
@@ -24,10 +25,12 @@ const appRoutes: Routes =[
     AppComponent,
     NotesListComponent,
     NotesFilterComponent,
-    NotesItemComponent
+    NotesItemComponent,
+    FilterPipe
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
     RouterModule.forRoot(appRoutes)
